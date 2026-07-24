@@ -59,7 +59,7 @@
             width: 50%;
             height: 100%;
             position: relative;
-            background-color: #cbd5e1;
+            background-color: #ffffff;
         }
         .left-panel {
             border-right: 4px solid #cbd5e1;
@@ -92,7 +92,6 @@
     <!-- Header Section for Custom Logo and Title -->
     <header>
         <div class="logo-container">
-            <!-- Client Logo Placeholder: Replace this URL link with a real image link when ready -->
             <img src="https://placeholder.com" alt="Client Logo">
         </div>
         <div class="header-titles">
@@ -104,7 +103,7 @@
     <!-- Main Workspace Split Container -->
     <div class="workspace">
         
-        <!-- Left Panel: Your Google My Map (Fixed Embed Security Syntax) -->
+        <!-- Left Panel: Official Public Embed URL -->
         <div class="split-panel left-panel">
             <iframe 
                 src="https://google.com" 
@@ -128,18 +127,14 @@
 
     <!-- Communication Pipeline Script -->
     <script>
-        // Reads URL links sent from map pins and switches the virtual tour
         function handleIncomingTour() {
             const urlParams = new URLSearchParams(window.location.search);
             const targetTourUrl = urlParams.get('tour');
             
             if (targetTourUrl) {
-                // Safely extracts the destination web address and applies it to the tour screen
                 document.getElementById('panoee-viewer').src = decodeURIComponent(targetTourUrl);
             }
         }
-
-        // Run the script loop instantly upon dashboard loading
         window.addEventListener('DOMContentLoaded', handleIncomingTour);
     </script>
 </body>
