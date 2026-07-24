@@ -71,7 +71,7 @@
             display: block;
         }
 
-        /* Mobile and tablet responsive adjustment rules */
+        /* Responsive instructions for mobile screens */
         @media (max-width: 900px) {
             .workspace {
                 flex-direction: column;
@@ -103,40 +103,63 @@
     <!-- Interactive Panels Layout Split Grid -->
     <div class="workspace">
         
-        <!-- Left Window: Your Verified Google My Map Embed View -->
+        <!-- Left Window: Verified Google My Map Embed View -->
         <div class="split-panel left-panel">
             <iframe 
-                src="https://google.com" 
+                src="https://www.google.com/maps/d/u/0/embed?mid=1iiIMGNtrlnGcwWzxy0q7ngdWURgGHhg&ehbc=2E312F&noprof=1" 
                 allowfullscreen="true">
             </iframe>
         </div>
 
-        <!-- Right Window: Your Verified Panoee Virtual Tour Viewer Canvas -->
+        <!-- Right Window: Verified Panoee Virtual Tour Viewer Canvas -->
         <div class="split-panel">
             <iframe 
-                id="panoee-viewer" 
-                src="https://tour.panoee.net/iframe/5729-lowestoft" 
-                allow="gyroscope; accelerometer; fullscreen; xr-spatial-tracking; vr" 
+                id="tour-embeded" 
+                name="5729 Lowestoft clone" 
+                src="https://tour.panoee.net/iframe/6a61e6ea587465000886ac95" 
+                scrolling="no" 
+                allowvr="yes" 
+                allow="vr; xr; accelerometer; gyroscope; autoplay; fullscreen" 
                 webkitallowfullscreen="true" 
                 mozallowfullscreen="true" 
-                allowfullscreen="true">
+                allowfullscreen="true" 
+                loading="eager">
             </iframe>
         </div>
 
     </div>
 
-    <!-- Live Inter-Panel Communication Handling Pipeline Script -->
+    <!-- Live Inter-Panel Communication & Gyroscope Pipeline Script -->
     <script>
+        // Pipeline Step 1: Read incoming URLs from Google My Maps Pin routing redirection
         function handleIncomingTour() {
             const urlParams = new URLSearchParams(window.location.search);
             const targetTourUrl = urlParams.get('tour');
             
             if (targetTourUrl) {
-                // Safely unwraps encoded string parameters and applies it cleanly to the viewer panel
-                document.getElementById('panoee-viewer').src = decodeURIComponent(targetTourUrl);
+                // Safely updates the right panel with the fresh tour parameters
+                document.getElementById('tour-embeded').src = decodeURIComponent(targetTourUrl);
             }
         }
         window.addEventListener('DOMContentLoaded', handleIncomingTour);
+
+        // Pipeline Step 2: Continuous device motion relay engine for seamless VR/Gyroscope interactions
+        var pano_iframe_name = "tour-embeded";
+        window.addEventListener("devicemotion", function(e) { 
+            var iframe = document.getElementById(pano_iframe_name); 
+            if (iframe && iframe.contentWindow) { 
+                iframe.contentWindow.postMessage({ 
+                    type: "devicemotion", 
+                    deviceMotionEvent: { 
+                        acceleration: { x: e.acceleration.x, y: e.acceleration.y, z: e.acceleration.z }, 
+                        accelerationIncludingGravity: { x: e.accelerationIncludingGravity.x, y: e.accelerationIncludingGravity.y, z: e.accelerationIncludingGravity.z }, 
+                        rotationRate: { alpha: e.rotationRate.alpha, beta: e.rotationRate.beta, gamma: e.rotationRate.gamma }, 
+                        interval: e.interval, 
+                        timeStamp: e.timeStamp 
+                    } 
+                }, "*"); 
+            } 
+        });
     </script>
 </body>
 </html>
