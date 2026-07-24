@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asda Demo - Virtual Property Dashboard</title>
     <style>
-        /* Base page cleanup */
+        /* Reset browser margins and padding */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,7 +20,7 @@
             background-color: #f8fafc;
         }
 
-        /* Branding Header Configuration */
+        /* Branding Header Layout */
         header {
             height: 75px;
             background-color: #ffffff;
@@ -71,7 +71,7 @@
             display: block;
         }
 
-        /* Responsive Mobile Breakpoint Adjustment */
+        /* Responsive Breakpoints for Tablet/Mobile views */
         @media (max-width: 900px) {
             .workspace {
                 flex-direction: column;
@@ -89,9 +89,10 @@
 </head>
 <body>
 
-    <!-- Header Section for Custom Logo and Title -->
+    <!-- Header Section -->
     <header>
         <div class="logo-container">
+            <!-- Placeholder Logo Image -->
             <img src="https://placeholder.com" alt="Client Logo">
         </div>
         <div class="header-titles">
@@ -103,10 +104,10 @@
     <!-- Main Workspace Split Container -->
     <div class="workspace">
         
-        <!-- Left Panel: Official Public Embed URL -->
+        <!-- Left Panel: Your Google My Map (Using your official embed link) -->
         <div class="split-panel left-panel">
             <iframe 
-                src="https://google.com" 
+                src="https://www.google.com/maps/d/u/0/embed?mid=1oA3gHMb6XIqmhB7Ct_i04SMHcxPf1nM&ehbc=2E312F" 
                 allowfullscreen="true">
             </iframe>
         </div>
@@ -125,16 +126,20 @@
 
     </div>
 
-    <!-- Communication Pipeline Script -->
+    <!-- Communication Bridge Script -->
     <script>
+        // Checks the dashboard web link to see if a map pin passed a tour link
         function handleIncomingTour() {
             const urlParams = new URLSearchParams(window.location.search);
             const targetTourUrl = urlParams.get('tour');
             
             if (targetTourUrl) {
+                // Instantly injects the decoded link into the right-side virtual tour window
                 document.getElementById('panoee-viewer').src = decodeURIComponent(targetTourUrl);
             }
         }
+
+        // Initialize script logic automatically on page generation
         window.addEventListener('DOMContentLoaded', handleIncomingTour);
     </script>
 </body>
