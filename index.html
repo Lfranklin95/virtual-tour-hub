@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asda Demo - Virtual Property Dashboard</title>
     <style>
-        /* Reset browser margins and padding */
+        /* Clean slate layout foundations */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,7 +20,7 @@
             background-color: #f8fafc;
         }
 
-        /* Branding Header Layout */
+        /* Dashboard Branding Header Container */
         header {
             height: 75px;
             background-color: #ffffff;
@@ -48,7 +48,7 @@
             margin-top: 2px;
         }
 
-        /* Split Screen Workspace Window Layout */
+        /* Main 50/50 Split View Workspace Windows */
         .workspace {
             display: flex;
             flex: 1;
@@ -71,7 +71,7 @@
             display: block;
         }
 
-        /* Responsive Breakpoints for Tablet/Mobile views */
+        /* Mobile and tablet responsive adjustment rules */
         @media (max-width: 900px) {
             .workspace {
                 flex-direction: column;
@@ -89,10 +89,9 @@
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header UI Bar -->
     <header>
         <div class="logo-container">
-            <!-- Placeholder Logo Image -->
             <img src="https://placeholder.com" alt="Client Logo">
         </div>
         <div class="header-titles">
@@ -101,23 +100,23 @@
         </div>
     </header>
 
-    <!-- Main Workspace Split Container -->
+    <!-- Interactive Panels Layout Split Grid -->
     <div class="workspace">
         
-        <!-- Left Panel: Your Google My Map (Using your official embed link) -->
+        <!-- Left Window: Your Verified Google My Map Embed View -->
         <div class="split-panel left-panel">
             <iframe 
-                src="https://www.google.com/maps/d/u/0/embed?mid=1oA3gHMb6XIqmhB7Ct_i04SMHcxPf1nM&ehbc=2E312F" 
+                src="https://google.com" 
                 allowfullscreen="true">
             </iframe>
         </div>
 
-        <!-- Right Panel: Panoee Virtual Tour Canvas Frame -->
+        <!-- Right Window: Your Verified Panoee Virtual Tour Viewer Canvas -->
         <div class="split-panel">
             <iframe 
                 id="panoee-viewer" 
-                src="https://panoee.com" 
-                allow="gyroscope; accelerometer; fullscreen; xr-spatial-tracking" 
+                src="https://tour.panoee.net/iframe/5729-lowestoft" 
+                allow="gyroscope; accelerometer; fullscreen; xr-spatial-tracking; vr" 
                 webkitallowfullscreen="true" 
                 mozallowfullscreen="true" 
                 allowfullscreen="true">
@@ -126,20 +125,17 @@
 
     </div>
 
-    <!-- Communication Bridge Script -->
+    <!-- Live Inter-Panel Communication Handling Pipeline Script -->
     <script>
-        // Checks the dashboard web link to see if a map pin passed a tour link
         function handleIncomingTour() {
             const urlParams = new URLSearchParams(window.location.search);
             const targetTourUrl = urlParams.get('tour');
             
             if (targetTourUrl) {
-                // Instantly injects the decoded link into the right-side virtual tour window
+                // Safely unwraps encoded string parameters and applies it cleanly to the viewer panel
                 document.getElementById('panoee-viewer').src = decodeURIComponent(targetTourUrl);
             }
         }
-
-        // Initialize script logic automatically on page generation
         window.addEventListener('DOMContentLoaded', handleIncomingTour);
     </script>
 </body>
