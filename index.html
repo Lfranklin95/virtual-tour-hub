@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asda Demo - Virtual Property Dashboard</title>
+    <style>
+        /* Base page cleanup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: #f8fafc;
+        }
+
+        /* Branding Header Configuration */
+        header {
+            height: 75px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 2px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            z-index: 10;
+        }
+        .logo-container img {
+            height: 45px;
+            width: auto;
+            margin-right: 20px;
+            object-fit: contain;
+        }
+        .header-titles h1 {
+            font-size: 18px;
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .header-titles p {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* Split Screen Workspace Window Layout */
+        .workspace {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 75px);
+        }
+        .split-panel {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            background-color: #cbd5e1;
+        }
+        .left-panel {
+            border-right: 4px solid #cbd5e1;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Responsive Mobile Breakpoint Adjustment */
+        @media (max-width: 900px) {
+            .workspace {
+                flex-direction: column;
+            }
+            .split-panel {
+                width: 100%;
+                height: 50%;
+            }
+            .left-panel {
+                border-right: none;
+                border-bottom: 4px solid #cbd5e1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section for Custom Logo and Title -->
+    <header>
+        <div class="logo-container">
+            <!-- Client Logo Placeholder: Replace this URL link with a real image link when ready -->
+            <img src="https://placeholder.com" alt="Client Logo">
+        </div>
+        <div class="header-titles">
+            <h1>Asda Demo Virtual Interactive Dashboard</h1>
+            <p>Click a custom pin on the left map to dynamically load its corresponding 360° virtual tour on the right panel.</p>
+        </div>
+    </header>
+
+    <!-- Main Workspace Split Container -->
+    <div class="workspace">
+        
+        <!-- Left Panel: Your Google My Map (Fixed Embed Security Syntax) -->
+        <div class="split-panel left-panel">
+            <iframe 
+                src="https://google.com" 
+                allowfullscreen="true">
+            </iframe>
+        </div>
+
+        <!-- Right Panel: Panoee Virtual Tour Canvas Frame -->
+        <div class="split-panel">
+            <iframe 
+                id="panoee-viewer" 
+                src="https://panoee.com" 
+                allow="gyroscope; accelerometer; fullscreen; xr-spatial-tracking" 
+                webkitallowfullscreen="true" 
+                mozallowfullscreen="true" 
+                allowfullscreen="true">
+            </iframe>
+        </div>
+
+    </div>
+
+    <!-- Communication Pipeline Script -->
+    <script>
+        // Reads URL links sent from map pins and switches the virtual tour
+        function handleIncomingTour() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetTourUrl = urlParams.get('tour');
+            
+            if (targetTourUrl) {
+                // Safely extracts the destination web address and applies it to the tour screen
+                document.getElementById('panoee-viewer').src = decodeURIComponent(targetTourUrl);
+            }
+        }
+
+        // Run the script loop instantly upon dashboard loading
+        window.addEventListener('DOMContentLoaded', handleIncomingTour);
+    </script>
+</body>
+</html>
